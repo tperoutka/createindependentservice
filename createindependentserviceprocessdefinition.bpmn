@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0jlk98t" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.10.0">
+  <bpmn:process id="sc-createindependentserviceprocess-common-stable" name="sc-createindependentserviceprocess-common-stable" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_079lr77</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_14m4702">
+      <bpmn:incoming>Flow_0xlhyyq</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_079lr77" sourceRef="StartEvent_1" targetRef="Activity_do_nothing" />
+    <bpmn:sequenceFlow id="Flow_0bgxpsq" sourceRef="Activity_do_nothing" targetRef="Event_153bzoh" />
+    <bpmn:sequenceFlow id="Flow_1wqlag9" sourceRef="Event_153bzoh" targetRef="Activity_notify_to_slack" />
+    <bpmn:intermediateCatchEvent id="Event_153bzoh">
+      <bpmn:incoming>Flow_0bgxpsq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1wqlag9</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_05lsczv">
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10S</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="Activity_do_nothing" name="Do Nothing">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_do_nothing" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_079lr77</bpmn:incoming>
+      <bpmn:outgoing>Flow_0bgxpsq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0xlhyyq" sourceRef="Activity_notify_to_slack" targetRef="Event_14m4702" />
+    <bpmn:serviceTask id="Activity_notify_to_slack" name="Notify to Slack">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_notify_to_slack" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1wqlag9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xlhyyq</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="sc-createindependentserviceprocess-common-stable">
+      <bpmndi:BPMNEdge id="Flow_079lr77_di" bpmnElement="Flow_079lr77">
+        <di:waypoint x="188" y="100" />
+        <di:waypoint x="320" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bgxpsq_di" bpmnElement="Flow_0bgxpsq">
+        <di:waypoint x="420" y="100" />
+        <di:waypoint x="532" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wqlag9_di" bpmnElement="Flow_1wqlag9">
+        <di:waypoint x="568" y="100" />
+        <di:waypoint x="690" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xlhyyq_di" bpmnElement="Flow_0xlhyyq">
+        <di:waypoint x="790" y="100" />
+        <di:waypoint x="962" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="152" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nss3kh_di" bpmnElement="Activity_do_nothing">
+        <dc:Bounds x="320" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14m4702_di" bpmnElement="Event_14m4702">
+        <dc:Bounds x="962" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0qza9fc_di" bpmnElement="Activity_notify_to_slack">
+        <dc:Bounds x="690" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1bpbjea_di" bpmnElement="Event_153bzoh">
+        <dc:Bounds x="532" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
