@@ -1,25 +1,25 @@
 ---
-subscription_point: sc-createindependentserviceprocess-common-stable_notify_to_slack
+subscription_point: sc-createindependentserviceprocess-common-stable_notify_service_created_in_landscape_callback
 command:
   request: notify_slack
   variables:
     - name: channel
-      source: static
-      value: 'tearoom_notifications'
+      source: header
+      value: 'TBD'
       type: string
       example: 'tearoom_notifications'
     - name: title
-      source: static
-      value: 'Independent Service Created'
+      source: header
+      value: 'TBD'
       type: string
       example: 'Message Title'
     - name: text
-      source: static
+      source: header
       value: 'Service ID: god-service'
       type: string
       example: 'This is the text of the message'
     - name: sender
-      source: static
+      source: header
       value: 'sc-createindependentservice workflow'
       type: string
       example: 'SenderId'
