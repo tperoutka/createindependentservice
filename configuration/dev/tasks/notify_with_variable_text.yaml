@@ -1,7 +1,12 @@
 ---
-subscription_point: sc-createindependentserviceprocess-common-stable_notify_service_created_in_landscape_callback
+subscription_points: 
+  - sc-createindependentserviceprocess-common-stable_notify_service_created
+  - sc-createindependentserviceprocess-common-stable_notify_bundle_added_to_environment
 command:
   request: notify_slack
+  reply_to:
+    type: http
+    identification: caller_connection  
   variables:
     - name: channel
       source: header
@@ -14,7 +19,7 @@ command:
       type: string
       example: 'Message Title'
     - name: text
-      source: header
+      source: process
       value: 'Service ID: god-service'
       type: string
       example: 'This is the text of the message'

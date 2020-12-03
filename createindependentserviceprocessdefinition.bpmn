@@ -74,7 +74,7 @@
       <bpmn:incoming>Flow_0iz76uh</bpmn:incoming>
       <bpmn:outgoing>Flow_1tpinbp</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1tpinbp" sourceRef="Activity_notify_service_created_in_landscape_command" targetRef="Event_1a2zydx" />
+    <bpmn:sequenceFlow id="Flow_1tpinbp" sourceRef="Activity_notify_service_created_in_landscape_command" targetRef="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" />
     <bpmn:serviceTask id="Activity_notify_service_created_in_landscape_callback" name="Notify: Service Created in Landscape [callback]">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_notify_service_created_in_landscape_callback" />
@@ -89,14 +89,7 @@
       <bpmn:outgoing>Flow_0xzmouk</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0xzmouk" sourceRef="Activity_notify_service_created_in_landscape_callback" targetRef="Event_14m4702" />
-    <bpmn:intermediateCatchEvent id="Event_1a2zydx">
-      <bpmn:incoming>Flow_1tpinbp</bpmn:incoming>
-      <bpmn:outgoing>Flow_0xg0qx7</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_07mpow6">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="Flow_0xg0qx7" sourceRef="Event_1a2zydx" targetRef="Activity_notify_service_created_in_landscape_callback" />
+    <bpmn:sequenceFlow id="Flow_0xg0qx7" sourceRef="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" targetRef="Activity_notify_service_created_in_landscape_callback" />
     <bpmn:sequenceFlow id="Flow_0shsgfa" sourceRef="Activity_1wt1r3s" targetRef="Event_153bzoh" />
     <bpmn:serviceTask id="Activity_1wt1r3s" name="Process Init Pouzivat jako typy TUC typy">
       <bpmn:extensionElements>
@@ -139,9 +132,27 @@
       <bpmn:sequenceFlow id="Flow_0vxwwwu" sourceRef="Activity_notify_bundle_added_to_environment" targetRef="Event_12a0a50" />
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_0iz76uh" sourceRef="Activity_add_bundle_to_environments" targetRef="Activity_notify_service_created_in_landscape_command" />
+    <bpmn:intermediateCatchEvent id="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" name="Response Delivered">
+      <bpmn:incoming>Flow_1tpinbp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xg0qx7</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1lo3zz9" messageRef="Message_0p0k6ir" />
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
+  <bpmn:message id="Message_0p0k6ir" name="sc-createindependentserviceprocess-common-stable_message_fact_derived">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=&#34;00ba91b3-981a-48f0-b4a9-4c721031c366&#34;" />
+    </bpmn:extensionElements>
+  </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="sc-createindependentserviceprocess-common-stable">
+      <bpmndi:BPMNEdge id="Flow_0iz76uh_di" bpmnElement="Flow_0iz76uh">
+        <di:waypoint x="1330" y="100" />
+        <di:waypoint x="1380" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0shsgfa_di" bpmnElement="Flow_0shsgfa">
+        <di:waypoint x="370" y="100" />
+        <di:waypoint x="422" y="100" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xg0qx7_di" bpmnElement="Flow_0xg0qx7">
         <di:waypoint x="1568" y="100" />
         <di:waypoint x="1610" y="100" />
@@ -174,14 +185,15 @@
         <di:waypoint x="228" y="100" />
         <di:waypoint x="270" y="100" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0shsgfa_di" bpmnElement="Flow_0shsgfa">
-        <di:waypoint x="370" y="100" />
-        <di:waypoint x="422" y="100" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0iz76uh_di" bpmnElement="Flow_0iz76uh">
-        <di:waypoint x="1330" y="100" />
-        <di:waypoint x="1380" y="100" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="192" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_14m4702_di" bpmnElement="Event_14m4702">
+        <dc:Bounds x="1752" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1bpbjea_di" bpmnElement="Event_153bzoh">
+        <dc:Bounds x="422" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0qza9fc_di" bpmnElement="Activity_notify_service_created">
         <dc:Bounds x="500" y="60" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -191,37 +203,31 @@
       <bpmndi:BPMNShape id="Activity_1wp0e49_di" bpmnElement="Activity_notify_service_instances_bundle_created">
         <dc:Bounds x="790" y="60" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_15ac9w5_di" bpmnElement="Activity_1wt1r3s">
-        <dc:Bounds x="270" y="60" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1bpbjea_di" bpmnElement="Event_153bzoh">
-        <dc:Bounds x="422" y="82" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="192" y="82" width="36" height="36" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ffvx8t_di" bpmnElement="Activity_notify_service_created_in_landscape_command">
         <dc:Bounds x="1380" y="60" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1a2zydx_di" bpmnElement="Event_1a2zydx">
-        <dc:Bounds x="1532" y="82" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_16rwhja_di" bpmnElement="Activity_notify_service_created_in_landscape_callback">
         <dc:Bounds x="1610" y="60" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_14m4702_di" bpmnElement="Event_14m4702">
-        <dc:Bounds x="1752" y="82" width="36" height="36" />
+      <bpmndi:BPMNShape id="Activity_15ac9w5_di" bpmnElement="Activity_1wt1r3s">
+        <dc:Bounds x="270" y="60" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1blmu3y_di" bpmnElement="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived">
+        <dc:Bounds x="1532" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1526" y="125" width="50" height="27" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06ra9lk_di" bpmnElement="Activity_add_bundle_to_environments" isExpanded="true">
         <dc:Bounds x="980" y="40" width="350" height="150" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="Flow_08o03lv_di" bpmnElement="Flow_08o03lv">
-        <di:waypoint x="1056" y="110" />
-        <di:waypoint x="1105" y="110" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0vxwwwu_di" bpmnElement="Flow_0vxwwwu">
         <di:waypoint x="1205" y="110" />
         <di:waypoint x="1262" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08o03lv_di" bpmnElement="Flow_08o03lv">
+        <di:waypoint x="1056" y="110" />
+        <di:waypoint x="1105" y="110" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0dzfiyr_di" bpmnElement="Event_0dzfiyr">
         <dc:Bounds x="1020" y="92" width="36" height="36" />

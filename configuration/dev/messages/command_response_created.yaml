@@ -1,0 +1,36 @@
+---
+id: command_response_created
+name: sc-createindependentserviceprocess-common-stable_command_response_created
+start_process: true
+events:
+  - command_response_created
+streams:
+  - type: kafka
+    purpose: testing
+    push_enabled: true
+    name: sc-createIndependentServiceProcessAdapterReplyStream-development-v1v0v0
+    environment:
+      space: services
+      tier: dev1
+    provider:
+      domain: sc
+      context: landscape
+      purpose: '*'
+      version: '*'
+      zone: '*'
+      bucket: '*'
+variables:
+  - name: origin_event_correlation_id
+    source: jsonPath
+    type: string
+    value: "$.correlation_id"
+    map_to:
+      - correlationKey
+    example: 00ba91b3-981a-48f0-b4a9-4c721031c366
+  - name: event
+    source: copy
+    type: json
+    value: "See example"
+    map_to:
+      - process
+    example: '{some json example}'
