@@ -10,22 +10,22 @@ command:
   variables:
     - name: channel
       source: header
-      value: 'TBD'
+      value: 'na'
       type: string
       example: 'tearoom_notifications'
     - name: title
       source: header
-      value: 'TBD'
+      value: 'na'
       type: string
       example: 'Message Title'
     - name: text
       source: process
-      value: 'Service ID: god-service'
+      value: 'na'
       type: string
       example: 'This is the text of the message'
     - name: sender
       source: header
-      value: 'sc-createindependentservice workflow'
+      value: 'na'
       type: string
       example: 'SenderId'
   handler:
@@ -39,6 +39,11 @@ command:
         space: ict
         tier: dev2
     implementation_note: 'Sends a notification to Slack'
+  security:
+    handler:
+      tgt_audience_root: null
+    command:
+      tgt_audience_root: null
 response:
 mock:
   default_response_type: 'ok'

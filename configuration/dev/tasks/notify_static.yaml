@@ -41,6 +41,11 @@ command:
         space: ict
         tier: dev2
     implementation_note: 'Sends a notification to Slack'
+  security:
+    handler:
+      tgt_audience_root: null
+    command:
+      tgt_audience_root: null
 response:
 mock:
   default_response_type: 'ok'

@@ -1,0 +1,39 @@
+---
+subscription_points: 
+  - sc-createindependentserviceprocess-common-stable_add_bundle_to_environment
+command:
+  request: add_bundle_to_environment
+  reply_to:
+    type: http
+    identification: caller_connection  
+  variables:
+    - name: environment_alias
+      source: process
+      value: 'na'
+      type: string
+      example: 'dev1-services'
+    - name: service_instances_bundle_identification
+      value: 'na'
+      source: process
+      type: string
+      example: "tearoom-menu"
+  handler:
+    type: rest
+    reactor:
+      domain: sc
+      context: runtimeEnvironmentAggregate
+      purpose: common
+      version: stable
+      environment:
+        space: dev1
+        tier: services
+    implementation_note: 'na'
+  security:
+    handler:
+      tgt_audience_root: null
+    command:
+      tgt_audience_root: null
+response:
+mock:
+  default_response_type: 'ok'
+  sleep_before_execution_seconds: 1

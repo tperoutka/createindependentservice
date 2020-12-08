@@ -7,16 +7,8 @@
     <bpmn:endEvent id="Event_14m4702">
       <bpmn:incoming>Flow_0xzmouk</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_079lr77" sourceRef="StartEvent_1" targetRef="Activity_1wt1r3s" />
-    <bpmn:sequenceFlow id="Flow_1wqlag9" sourceRef="Event_153bzoh" targetRef="Activity_notify_service_created" />
-    <bpmn:intermediateCatchEvent id="Event_153bzoh">
-      <bpmn:incoming>Flow_0shsgfa</bpmn:incoming>
-      <bpmn:outgoing>Flow_1wqlag9</bpmn:outgoing>
-      <bpmn:timerEventDefinition id="TimerEventDefinition_05lsczv">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT10S</bpmn:timeDuration>
-      </bpmn:timerEventDefinition>
-    </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="Flow_0xlhyyq" sourceRef="Activity_notify_service_created" targetRef="Activity_notify_service_account_created" />
+    <bpmn:sequenceFlow id="Flow_079lr77" sourceRef="StartEvent_1" targetRef="Activity_dummy_task" />
+    <bpmn:sequenceFlow id="Flow_0xlhyyq" sourceRef="Activity_notify_service_created" targetRef="Activity_create_service_account" />
     <bpmn:serviceTask id="Activity_notify_service_created" name="Notify: Service Created">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_notify_service_created" />
@@ -30,7 +22,7 @@
           <zeebe:input source="= &#34;string&#34;" target="text.type" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1wqlag9</bpmn:incoming>
+      <bpmn:incoming>Flow_1ocyprb</bpmn:incoming>
       <bpmn:outgoing>Flow_0xlhyyq</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_notify_service_account_created" name="Notify: Service Account Created">
@@ -43,10 +35,10 @@
           <zeebe:header key="sender" value="sc-createIndependentServiceProcessAdapter" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0xlhyyq</bpmn:incoming>
+      <bpmn:incoming>Flow_114eg54</bpmn:incoming>
       <bpmn:outgoing>Flow_0rmlvec</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_0rmlvec" sourceRef="Activity_notify_service_account_created" targetRef="Activity_notify_service_instances_bundle_created" />
+    <bpmn:sequenceFlow id="Flow_0rmlvec" sourceRef="Activity_notify_service_account_created" targetRef="Activity_create_single_member_bundle" />
     <bpmn:serviceTask id="Activity_notify_service_instances_bundle_created" name="Notify: Service Instances Bundle Created">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_notify_service_instances_bundle_created" />
@@ -57,11 +49,11 @@
           <zeebe:header key="sender" value="sc-createIndependentServiceProcessAdapter" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0rmlvec</bpmn:incoming>
+      <bpmn:incoming>Flow_0dfmh6c</bpmn:incoming>
       <bpmn:outgoing>Flow_0ajqij6</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0ajqij6" sourceRef="Activity_notify_service_instances_bundle_created" targetRef="Activity_add_bundle_to_environments" />
-    <bpmn:serviceTask id="Activity_notify_service_created_in_landscape_command" name="Notify: Service Created in Landscape [async command]">
+    <bpmn:serviceTask id="Activity_notify_service_created_in_landscape_command" name="Notify: Service Created in Landscape (command)">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_notify_service_created_in_landscape_command" />
         <zeebe:taskHeaders>
@@ -71,11 +63,11 @@
           <zeebe:header key="sender" value="sc-createIndependentServiceProcessAdapter" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0iz76uh</bpmn:incoming>
+      <bpmn:incoming>Flow_1twsedp</bpmn:incoming>
       <bpmn:outgoing>Flow_1tpinbp</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1tpinbp" sourceRef="Activity_notify_service_created_in_landscape_command" targetRef="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" />
-    <bpmn:serviceTask id="Activity_notify_service_created_in_landscape_callback" name="Notify: Service Created in Landscape [callback]">
+    <bpmn:serviceTask id="Activity_notify_service_created_in_landscape_callback" name="Notify: Service Created in Landscape (callback)">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_notify_service_created_in_landscape_callback" />
         <zeebe:taskHeaders>
@@ -90,8 +82,8 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0xzmouk" sourceRef="Activity_notify_service_created_in_landscape_callback" targetRef="Event_14m4702" />
     <bpmn:sequenceFlow id="Flow_0xg0qx7" sourceRef="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" targetRef="Activity_notify_service_created_in_landscape_callback" />
-    <bpmn:sequenceFlow id="Flow_0shsgfa" sourceRef="Activity_1wt1r3s" targetRef="Event_153bzoh" />
-    <bpmn:serviceTask id="Activity_1wt1r3s" name="Process Init Pouzivat jako typy TUC typy">
+    <bpmn:sequenceFlow id="Flow_0shsgfa" sourceRef="Activity_dummy_task" targetRef="Activity_create_independent_service" />
+    <bpmn:serviceTask id="Activity_dummy_task" name="Manual Stop">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="dummy_task" />
       </bpmn:extensionElements>
@@ -122,21 +114,77 @@
             <zeebe:input source="= &#34;Bundle added to: &#34; + environment" target="text.value" />
           </zeebe:ioMapping>
         </bpmn:extensionElements>
-        <bpmn:incoming>Flow_08o03lv</bpmn:incoming>
+        <bpmn:incoming>Flow_06rnbhy</bpmn:incoming>
         <bpmn:outgoing>Flow_0vxwwwu</bpmn:outgoing>
       </bpmn:serviceTask>
-      <bpmn:sequenceFlow id="Flow_08o03lv" sourceRef="Event_0dzfiyr" targetRef="Activity_notify_bundle_added_to_environment" />
+      <bpmn:sequenceFlow id="Flow_08o03lv" sourceRef="Event_0dzfiyr" targetRef="Activity_stable_add_bundle_to_environment" />
       <bpmn:endEvent id="Event_12a0a50">
         <bpmn:incoming>Flow_0vxwwwu</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="Flow_0vxwwwu" sourceRef="Activity_notify_bundle_added_to_environment" targetRef="Event_12a0a50" />
+      <bpmn:sequenceFlow id="Flow_06rnbhy" sourceRef="Activity_stable_add_bundle_to_environment" targetRef="Activity_notify_bundle_added_to_environment" />
+      <bpmn:serviceTask id="Activity_stable_add_bundle_to_environment" name="Add Bundle To Environment">
+        <bpmn:extensionElements>
+          <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_add_bundle_to_environment" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_08o03lv</bpmn:incoming>
+        <bpmn:outgoing>Flow_06rnbhy</bpmn:outgoing>
+      </bpmn:serviceTask>
     </bpmn:subProcess>
-    <bpmn:sequenceFlow id="Flow_0iz76uh" sourceRef="Activity_add_bundle_to_environments" targetRef="Activity_notify_service_created_in_landscape_command" />
+    <bpmn:sequenceFlow id="Flow_0iz76uh" sourceRef="Activity_add_bundle_to_environments" targetRef="Activity_create_service_in_landscape" />
     <bpmn:intermediateCatchEvent id="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" name="Response Delivered">
       <bpmn:incoming>Flow_1tpinbp</bpmn:incoming>
       <bpmn:outgoing>Flow_0xg0qx7</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1lo3zz9" messageRef="Message_0p0k6ir" />
     </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="Activity_create_service_in_landscape" name="Create Service in LandscapeResourceAPI (async)">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_create_service_in_landscape" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0iz76uh</bpmn:incoming>
+      <bpmn:outgoing>Flow_1twsedp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1twsedp" sourceRef="Activity_create_service_in_landscape" targetRef="Activity_notify_service_created_in_landscape_command" />
+    <bpmn:serviceTask id="Activity_create_independent_service" name="Create Service">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_create_independent_service" />
+        <zeebe:ioMapping>
+          <zeebe:input source="= service.value.domain.type" target="domain.type" />
+          <zeebe:input source="=service.value.domain.value" target="domain.value" />
+          <zeebe:input source="= service.value.context.type" target="context.type" />
+          <zeebe:input source="= service.value.context.value" target="context.value" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0shsgfa</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ocyprb</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_1ocyprb" sourceRef="Activity_create_independent_service" targetRef="Activity_notify_service_created" />
+    <bpmn:sequenceFlow id="Flow_114eg54" sourceRef="Activity_create_service_account" targetRef="Activity_notify_service_account_created" />
+    <bpmn:sequenceFlow id="Flow_0dfmh6c" sourceRef="Activity_create_single_member_bundle" targetRef="Activity_notify_service_instances_bundle_created" />
+    <bpmn:serviceTask id="Activity_create_single_member_bundle" name="Create Single Memeber Instances Bundle">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_create_single_member_bundle" />
+        <zeebe:ioMapping>
+          <zeebe:input source="= &#34;string&#34;" target="name.type" />
+          <zeebe:input source="= service.value.domain.value + &#34;-&#34; + service.value.context.value" target="name.value" />
+          <zeebe:input source="= &#34;string&#34;" target="purpose.type" />
+          <zeebe:input source="= &#34;common&#34;" target="purpose.value" />
+          <zeebe:input source="= &#34;string&#34;" target="version.type" />
+          <zeebe:input source="= &#34;stable&#34;" target="version.value" />
+          <zeebe:input source="= &#34;json&#34;" target="service.type" />
+          <zeebe:input source="= {&#34;domain&#34;:service.value.domain.value, &#34;context&#34;:service.value.context.value}" target="service.value" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0rmlvec</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dfmh6c</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_create_service_account" name="Create Service Account">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="dummy_task" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0xlhyyq</bpmn:incoming>
+      <bpmn:outgoing>Flow_114eg54</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmn:message id="Message_0p0k6ir" name="sc-createindependentserviceprocess-common-stable_message_fact_derived">
     <bpmn:extensionElements>
@@ -145,98 +193,130 @@
   </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="sc-createindependentserviceprocess-common-stable">
+      <bpmndi:BPMNEdge id="Flow_0dfmh6c_di" bpmnElement="Flow_0dfmh6c">
+        <di:waypoint x="950" y="300" />
+        <di:waypoint x="990" y="300" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_114eg54_di" bpmnElement="Flow_114eg54">
+        <di:waypoint x="700" y="210" />
+        <di:waypoint x="740" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ocyprb_di" bpmnElement="Flow_1ocyprb">
+        <di:waypoint x="460" y="120" />
+        <di:waypoint x="500" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1twsedp_di" bpmnElement="Flow_1twsedp">
+        <di:waypoint x="1640" y="550" />
+        <di:waypoint x="1670" y="550" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0iz76uh_di" bpmnElement="Flow_0iz76uh">
-        <di:waypoint x="1330" y="100" />
-        <di:waypoint x="1380" y="100" />
+        <di:waypoint x="1330" y="500" />
+        <di:waypoint x="1330" y="550" />
+        <di:waypoint x="1540" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0shsgfa_di" bpmnElement="Flow_0shsgfa">
-        <di:waypoint x="370" y="100" />
-        <di:waypoint x="422" y="100" />
+        <di:waypoint x="320" y="120" />
+        <di:waypoint x="360" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xg0qx7_di" bpmnElement="Flow_0xg0qx7">
-        <di:waypoint x="1568" y="100" />
-        <di:waypoint x="1610" y="100" />
+        <di:waypoint x="1848" y="550" />
+        <di:waypoint x="1890" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xzmouk_di" bpmnElement="Flow_0xzmouk">
-        <di:waypoint x="1710" y="100" />
-        <di:waypoint x="1752" y="100" />
+        <di:waypoint x="1990" y="550" />
+        <di:waypoint x="2062" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1tpinbp_di" bpmnElement="Flow_1tpinbp">
-        <di:waypoint x="1480" y="100" />
-        <di:waypoint x="1532" y="100" />
+        <di:waypoint x="1770" y="550" />
+        <di:waypoint x="1812" y="550" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0ajqij6_di" bpmnElement="Flow_0ajqij6">
-        <di:waypoint x="890" y="100" />
-        <di:waypoint x="980" y="100" />
+        <di:waypoint x="1040" y="340" />
+        <di:waypoint x="1040" y="425" />
+        <di:waypoint x="1080" y="425" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0rmlvec_di" bpmnElement="Flow_0rmlvec">
-        <di:waypoint x="750" y="100" />
-        <di:waypoint x="790" y="100" />
+        <di:waypoint x="790" y="250" />
+        <di:waypoint x="790" y="300" />
+        <di:waypoint x="850" y="300" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0xlhyyq_di" bpmnElement="Flow_0xlhyyq">
-        <di:waypoint x="600" y="100" />
-        <di:waypoint x="650" y="100" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1wqlag9_di" bpmnElement="Flow_1wqlag9">
-        <di:waypoint x="458" y="100" />
-        <di:waypoint x="500" y="100" />
+        <di:waypoint x="550" y="160" />
+        <di:waypoint x="550" y="210" />
+        <di:waypoint x="600" y="210" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_079lr77_di" bpmnElement="Flow_079lr77">
-        <di:waypoint x="228" y="100" />
-        <di:waypoint x="270" y="100" />
+        <di:waypoint x="188" y="120" />
+        <di:waypoint x="220" y="120" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="192" y="82" width="36" height="36" />
+        <dc:Bounds x="152" y="102" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_14m4702_di" bpmnElement="Event_14m4702">
-        <dc:Bounds x="1752" y="82" width="36" height="36" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1bpbjea_di" bpmnElement="Event_153bzoh">
-        <dc:Bounds x="422" y="82" width="36" height="36" />
+        <dc:Bounds x="2062" y="532" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0qza9fc_di" bpmnElement="Activity_notify_service_created">
-        <dc:Bounds x="500" y="60" width="100" height="80" />
+        <dc:Bounds x="500" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0qh7v2g_di" bpmnElement="Activity_notify_service_account_created">
-        <dc:Bounds x="650" y="60" width="100" height="80" />
+        <dc:Bounds x="740" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1wp0e49_di" bpmnElement="Activity_notify_service_instances_bundle_created">
-        <dc:Bounds x="790" y="60" width="100" height="80" />
+        <dc:Bounds x="990" y="260" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0ffvx8t_di" bpmnElement="Activity_notify_service_created_in_landscape_command">
-        <dc:Bounds x="1380" y="60" width="100" height="80" />
+        <dc:Bounds x="1670" y="510" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_16rwhja_di" bpmnElement="Activity_notify_service_created_in_landscape_callback">
-        <dc:Bounds x="1610" y="60" width="100" height="80" />
+        <dc:Bounds x="1890" y="510" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_15ac9w5_di" bpmnElement="Activity_1wt1r3s">
-        <dc:Bounds x="270" y="60" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1blmu3y_di" bpmnElement="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived">
-        <dc:Bounds x="1532" y="82" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1526" y="125" width="50" height="27" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNShape id="Activity_15ac9w5_di" bpmnElement="Activity_dummy_task">
+        <dc:Bounds x="220" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_06ra9lk_di" bpmnElement="Activity_add_bundle_to_environments" isExpanded="true">
-        <dc:Bounds x="980" y="40" width="350" height="150" />
+        <dc:Bounds x="1080" y="350" width="460" height="150" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_06rnbhy_di" bpmnElement="Flow_06rnbhy">
+        <di:waypoint x="1300" y="430" />
+        <di:waypoint x="1330" y="430" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0vxwwwu_di" bpmnElement="Flow_0vxwwwu">
-        <di:waypoint x="1205" y="110" />
-        <di:waypoint x="1262" y="110" />
+        <di:waypoint x="1430" y="430" />
+        <di:waypoint x="1472" y="430" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_08o03lv_di" bpmnElement="Flow_08o03lv">
-        <di:waypoint x="1056" y="110" />
-        <di:waypoint x="1105" y="110" />
+        <di:waypoint x="1156" y="430" />
+        <di:waypoint x="1200" y="430" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Event_0dzfiyr_di" bpmnElement="Event_0dzfiyr">
-        <dc:Bounds x="1020" y="92" width="36" height="36" />
+        <dc:Bounds x="1120" y="412" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_12ba33y_di" bpmnElement="Activity_notify_bundle_added_to_environment">
-        <dc:Bounds x="1105" y="70" width="100" height="80" />
+        <dc:Bounds x="1330" y="390" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_12a0a50_di" bpmnElement="Event_12a0a50">
-        <dc:Bounds x="1262" y="92" width="36" height="36" />
+        <dc:Bounds x="1472" y="412" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bn10mp_di" bpmnElement="Activity_stable_add_bundle_to_environment">
+        <dc:Bounds x="1200" y="390" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1blmu3y_di" bpmnElement="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived">
+        <dc:Bounds x="1812" y="532" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1806" y="575" width="50" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wyi1ss_di" bpmnElement="Activity_create_service_in_landscape">
+        <dc:Bounds x="1540" y="510" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bqpv4r_di" bpmnElement="Activity_create_independent_service">
+        <dc:Bounds x="360" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0lyhotw_di" bpmnElement="Activity_create_single_member_bundle">
+        <dc:Bounds x="850" y="260" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0luv3er_di" bpmnElement="Activity_create_service_account">
+        <dc:Bounds x="600" y="170" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

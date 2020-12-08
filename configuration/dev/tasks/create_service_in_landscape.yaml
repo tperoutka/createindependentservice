@@ -1,0 +1,39 @@
+---
+subscription_points: 
+  - sc-createindependentserviceprocess-common-stable_create_service_in_landscape
+command:
+  request: create_independent_service
+  reply_to:
+    type: kafka
+    identification: sc-createIndependentServiceProcessAdapterReplyStream-development-v1v0v0  
+  variables:
+    - name: instance
+      source: process
+      value: 'na'
+      type: string
+      example: 'tearoom-notifications-common-stable'
+    - name: environments
+      value: 'na'
+      source: process
+      type: json
+      example: ["dev1-services","prod-services"]
+  handler:
+    type: rest
+    reactor:
+      domain: sc
+      context: landscapeApi
+      purpose: common
+      version: stable
+      environment:
+        space: dev1
+        tier: services
+    implementation_note: 'Sends a notification to Slack'
+  security:
+    handler:
+      tgt_audience_root: null
+    command:
+      tgt_audience_root: null
+response:
+mock:
+  default_response_type: 'ok'
+  sleep_before_execution_seconds: 1

@@ -1,0 +1,39 @@
+---
+subscription_points: 
+  - sc-createindependentserviceprocess-common-stable_create_independent_service
+command:
+  request: create_independent_service
+  reply_to:
+    type: http
+    identification: caller_connection  
+  variables:
+    - name: domain
+      source: process
+      value: 'na'
+      type: string
+      example: 'tearoom'
+    - name: context
+      value: 'na'
+      source: process
+      type: string
+      example: "menu"
+  handler:
+    type: rest
+    reactor:
+      domain: sc
+      context: serviceAggregate
+      purpose: common
+      version: stable
+      environment:
+        space: dev1
+        tier: services
+    implementation_note: 'na'
+  security:
+    handler:
+      tgt_audience_root: null
+    command:
+      tgt_audience_root: null
+response:
+mock:
+  default_response_type: 'ok'
+  sleep_before_execution_seconds: 1

@@ -1,0 +1,69 @@
+{
+    "data": {
+        "type": "softwareComponentPermissionsAggregate/tgt",
+        "id": "consents-reconciliatorapi",
+        "attributes": {
+            "state": "exists",
+            "key_data": {
+                "service": "consents-reconciliatorapi"
+            },
+            "domain_data": [
+                {
+                    "jwt": "eyJhbGciOiJSUzI1NiIsImtpZCI6IkhXM1BuU2hINXBERFhIX21YWmw5UWd4YzZ4WSIsInR5cCI6IkpXVCJ9.eyJzaWQiOiJjb25zZW50cy1yZWNvbmNpbGlhdG9yYXBpIiwiYXpwIjoiam9icy1hZ2VudHMtY29tbW9uLXN0YWJsZUBwcm9kIiwic2NwIjoiY29uc2VudHM6cmVhZCIsImF1ZCI6ImNvbnNlbnRzLXJlY29uY2lsaWF0b3JhcGktY29tbW9uLXN0YWJsZUBwcm9kLXNlcnZpY2VzIiwiZXhwIjoxNjIwMzE1MjczLCJqdGkiOiIwZGFhNTFiZC0wZjBlLTQwNjgtYWZjYi0wZDUyNDYxYzdkMmYiLCJpYXQiOjE1ODkyMTEyNzMsImlzcyI6InNpZ25vciIsIm5iZiI6MTU4OTIxMTI3Mywic3ViIjoidG9rZW4tZ3JhbnRpbmctdG9rZW4ifQ.mbns1QrJGtYWz7jdST-D08Gj8DbndlhsECktdUEVMdxpSpaB6fZmweRIjKvK0lDDig9F-oaffH85h7m7fNwFRTds_XYS921V1FLD413-zBvLc0NbccU8mPIKnnY9zS7ig09BgzB3hxIEXYqVIIQ3JiawoSCtpm6F7qMYLgfi5bx5CCGP4NU22iYnj6G9taOqNcXuIcpFwhkg5f-uGNG6YC18SrmScuUUqhyDKs_4K2bm9hWlDV_s1Ul4y5V6l3hUgvC9I8MqgF-K0DnSkO-38zXUKY-6z6vQTjJCSLq_9gTWPBXUrwPatmh4-HFyvIuVNrYNy5Fiq3_701z5hJ_CxQ",
+                    "aud": "consents-reconciliatorapi-common-stable@prod-services",
+                    "azp": "jobs-agents-common-stable@prod",
+                    "exp": "2021-05-06T15:34:33Z",
+                    "iat": "2020-05-11T15:34:33Z",
+                    "iss": "signor",
+                    "jti": "0daa51bd-0f0e-4068-afcb-0d52461c7d2f",
+                    "nbf": "2020-05-11T15:34:33Z",
+                    "scp": "consents:read",
+                    "sid": "consents-reconciliatorapi",
+                    "sub": "token-granting-token"
+                },
+                {
+                    "jwt": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlRaUU9oWElMOW1SRVgtWHFtWHMxeWwzemtmWSIsInR5cCI6IkpXVCJ9.eyJzaWQiOiJjb25zZW50cy1yZWNvbmNpbGlhdG9yYXBpIiwiYXpwIjoiam9icy1hZ2VudHMtY29tbW9uLXN0YWJsZUBwcm9kIiwic2NwIjoiY29uc2VudHM6cmVhZCIsImF1ZCI6ImNvbnNlbnRzLXJlY29uY2lsaWF0b3JhcGktY29tbW9uLXN0YWJsZUBwcm9kLXNlcnZpY2VzIiwiZXhwIjoxNjM4NDU5ODA1LCJqdGkiOiI3NTIyYzdhYi01NjNhLTQ2NDEtODA5OC03ZGM4YTZlYWQ1NDciLCJpYXQiOjE2MDczNTU4MDUsImlzcyI6InNpZ25vciIsIm5iZiI6MTYwNzM1NTgwNSwic3ViIjoidG9rZW4tZ3JhbnRpbmctdG9rZW4ifQ.Oi3K-whTWSHq7uceYp77hFercT04E_I2EcEu7cfpCq_V2xDqqoh0YMF9L8UR5wQMGi2GzEropGqmZXyJR12TO5ipMM-2nxVByLfRE6jhg_uvoZWnqatpfLTjF578DDNp5dd2AnML3n2VOw5Hv16Qol6Ok8B3MIY92PnIvUcpKA6dvqoRtCm_LD3m5SEOl1I98D-X3bptPPPjyBP21361kxDxcUf-qo93AaDA2jPbcPcGZr-4UJH_oXN0Z_YFUgIwrv9KzcL1l9Cgru3iSokiG62G7Am5-ogcJaaR-09G814frkjhElwYfuphK0Vg2X1GpUQaO1iTBHdvxl_Oh-oqkg",
+                    "aud": "consents-reconciliatorapi-common-stable@prod-services",
+                    "azp": "jobs-agents-common-stable@prod",
+                    "exp": "2021-12-02T15:43:25Z",
+                    "iat": "2020-12-07T15:43:25Z",
+                    "iss": "signor",
+                    "jti": "7522c7ab-563a-4641-8098-7dc8a6ead547",
+                    "nbf": "2020-12-07T15:43:25Z",
+                    "scp": "consents:read",
+                    "sid": "consents-reconciliatorapi",
+                    "sub": "token-granting-token"
+                },
+                {
+                    "jwt": "eyJhbGciOiJSUzI1NiIsImtpZCI6IlRaUU9oWElMOW1SRVgtWHFtWHMxeWwzemtmWSIsInR5cCI6IkpXVCJ9.eyJzaWQiOiJjb25zZW50cy1yZWNvbmNpbGlhdG9yYXBpIiwiYXpwIjoiam9icy1hZ2VudHMtY29tbW9uLXN0YWJsZUBwcm9kIiwic2NwIjoiY29uc2VudHM6cmVhZCIsImF1ZCI6ImNvbnNlbnRzLXJlY29uY2lsaWF0b3JhcGktY29tbW9uLXN0YWJsZUBwcm9kLXNlcnZpY2VzIiwiZXhwIjoxNjM4NDYwMjU5LCJqdGkiOiI5MTBjYTBjZS1mNDdiLTRiZjAtODE1OC0zOWFmOWVmOWUzMjQiLCJpYXQiOjE2MDczNTYyNTksImlzcyI6InNpZ25vciIsIm5iZiI6MTYwNzM1NjI1OSwic3ViIjoidG9rZW4tZ3JhbnRpbmctdG9rZW4ifQ.i7u2ERAmwhyFWsyuKk5doFRhcD2zMhhVmcUJVvB-d2qSKbkGfQIAtTEaLPHCT578lX8vtuGC9dLWOzoWPN3YLA03WgBbajcVJlOhxu3gCQhFAstbjeCECSY_Rkl3cQJXJ4iXxut_OryK7DXzxeBKNpDdDl5G5x96Lhm1BG18gSCmrCVrTCicec4bGOuZ1vyrLWHmtUhvm_MjjoOTcsQorvKHCsgpLtdcju7ptNg_QjzO0LfCM-HNd6E7j940RFydg3NrKtNYAaf8ENhHVnzw5ERCxuET5w8PWUkf3FZSPxpYR0QeRZUKh4Ix9TH3OKX3_6817ZEJSpuJbwqxpaXuOw",
+                    "aud": "consents-reconciliatorapi-common-stable@prod-services",
+                    "azp": "jobs-agents-common-stable@prod",
+                    "exp": "2021-12-02T15:50:59Z",
+                    "iat": "2020-12-07T15:50:59Z",
+                    "iss": "signor",
+                    "jti": "910ca0ce-f47b-4bf0-8158-39af9ef9e324",
+                    "nbf": "2020-12-07T15:50:59Z",
+                    "scp": "consents:read",
+                    "sid": "consents-reconciliatorapi",
+                    "sub": "token-granting-token"
+                }
+            ],
+            "meta_data": {
+                "last_processed_event_at": "2020-12-07T16:05:13Z",
+                "last_processed_event_sequence_id": 6,
+                "first_processed_event_at": "2020-05-11T15:34:35Z",
+                "first_processed_event_sequence_id": 0
+            }
+        }
+    },
+    "meta": {},
+    "links": {
+        "events_stream": "http://eventstore.service.prod-services.consul:2113/web/index.html#/streams/softwareComponentPermissionsAggregateEvents-all-common-v1_consents-reconciliatorapi",
+        "interpreter_events": "https://sc-router.prod.services.lmc/sc-softwarecomponentpermissionaggregate-common-stable/api/v0/software-component-permissions-aggregates/consents-reconciliatorapi/events",
+        "interpreter_tgt": "https://sc-router.prod.services.lmc/sc-softwarecomponentpermissionaggregate-common-stable/api/v0/software-component-permissions-aggregates/consents-reconciliatorapi/tgt",
+        "self": "https://sc-router.prod.services.lmc/sc-softwarecomponentpermissionaggregate-common-stable/api/v0/software-component-permissions-aggregates/consents-reconciliatorapi/tgt?azpRoot=jobs-agents-common-stable@prod&audRoot=consents-reconciliatorapi&skipExpiredBefore=2020-12-23T07:37:00.000Z",
+        "state_diff_to_nearest_previous": "https://sc-router.prod.services.lmc/sc-softwarecomponentpermissionaggregate-common-stable/api/v0/software-component-permissions-aggregates/consents-reconciliatorapi/tgt?diff=nearestPrevious",
+        "state_diff_to_nearest_previous_bool_map": "https://sc-router.prod.services.lmc/sc-softwarecomponentpermissionaggregate-common-stable/api/v0/software-component-permissions-aggregates/consents-reconciliatorapi/tgt?diff=nearestPrevious&diffType=boolMap",
+        "state_without_diff": "https://sc-router.prod.services.lmc/sc-softwarecomponentpermissionaggregate-common-stable/api/v0/software-component-permissions-aggregates/consents-reconciliatorapi/tgt"
+    }
+}

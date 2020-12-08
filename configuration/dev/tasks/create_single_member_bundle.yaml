@@ -1,0 +1,49 @@
+---
+subscription_points: 
+  - sc-createindependentserviceprocess-common-stable_create_single_member_bundle
+command:
+  request: create_single_member_bundle
+  reply_to:
+    type: http
+    identification: caller_connection  
+  variables:
+    - name: name
+      source: process
+      value: 'na'
+      type: string
+      example: 'tearoom-menu'
+    - name: purpose
+      value: 'na'
+      source: process
+      type: string
+      example: "common"
+    - name: version
+      value: 'na'
+      source: process
+      type: string
+      example: 'stable'
+    - name: service
+      value: 'na'
+      source: process
+      type: json
+      example: {"domain":"tearoom","context":"menu"}
+  handler:
+    type: rest
+    reactor:
+      domain: sc
+      context: serviceInstancesBundleAggregate
+      purpose: common
+      version: stable
+      environment:
+        space: dev1
+        tier: services
+    implementation_note: 'na'
+  security:
+    handler:
+      tgt_audience_root: null
+    command:
+      tgt_audience_root: null
+response:
+mock:
+  default_response_type: 'ok'
+  sleep_before_execution_seconds: 1
