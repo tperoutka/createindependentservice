@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0jlk98t" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Zeebe Modeler" exporterVersion="0.10.0">
   <bpmn:process id="sc-createindependentserviceprocess-common-stable" name="sc-createindependentserviceprocess-common-stable" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartEvent">
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="= service.value.identification.value" target="xxxservicexxx.value" />
+          <zeebe:output source="= service.value.identification.type" target="xxxservicexxx.type" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
       <bpmn:outgoing>Flow_079lr77</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:endEvent id="Event_14m4702">
       <bpmn:incoming>Flow_0xzmouk</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_079lr77" sourceRef="StartEvent_1" targetRef="Activity_dummy_task" />
+    <bpmn:sequenceFlow id="Flow_079lr77" sourceRef="StartEvent" targetRef="Activity_dummy_task" />
     <bpmn:sequenceFlow id="Flow_0xlhyyq" sourceRef="Activity_notify_service_created" targetRef="Activity_create_service_account" />
     <bpmn:serviceTask id="Activity_notify_service_created" name="Notify: Service Created">
       <bpmn:extensionElements>
@@ -66,7 +72,7 @@
       <bpmn:incoming>Flow_1twsedp</bpmn:incoming>
       <bpmn:outgoing>Flow_1tpinbp</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="Flow_1tpinbp" sourceRef="Activity_notify_service_created_in_landscape_command" targetRef="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" />
+    <bpmn:sequenceFlow id="Flow_1tpinbp" sourceRef="Activity_notify_service_created_in_landscape_command" targetRef="sc-createindependentserviceprocess-common-stable_command_response_created" />
     <bpmn:serviceTask id="Activity_notify_service_created_in_landscape_callback" name="Notify: Service Created in Landscape (callback)">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_notify_service_created_in_landscape_callback" />
@@ -81,7 +87,7 @@
       <bpmn:outgoing>Flow_0xzmouk</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0xzmouk" sourceRef="Activity_notify_service_created_in_landscape_callback" targetRef="Event_14m4702" />
-    <bpmn:sequenceFlow id="Flow_0xg0qx7" sourceRef="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" targetRef="Activity_notify_service_created_in_landscape_callback" />
+    <bpmn:sequenceFlow id="Flow_0xg0qx7" sourceRef="sc-createindependentserviceprocess-common-stable_command_response_created" targetRef="Activity_notify_service_created_in_landscape_callback" />
     <bpmn:sequenceFlow id="Flow_0shsgfa" sourceRef="Activity_dummy_task" targetRef="Activity_create_independent_service" />
     <bpmn:serviceTask id="Activity_dummy_task" name="Manual Stop">
       <bpmn:extensionElements>
@@ -132,10 +138,10 @@
       </bpmn:serviceTask>
     </bpmn:subProcess>
     <bpmn:sequenceFlow id="Flow_0iz76uh" sourceRef="Activity_add_bundle_to_environments" targetRef="Activity_create_service_in_landscape" />
-    <bpmn:intermediateCatchEvent id="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived" name="Response Delivered">
+    <bpmn:intermediateCatchEvent id="sc-createindependentserviceprocess-common-stable_command_response_created" name="Response Delivered">
       <bpmn:incoming>Flow_1tpinbp</bpmn:incoming>
       <bpmn:outgoing>Flow_0xg0qx7</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1lo3zz9" messageRef="Message_0p0k6ir" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1lo3zz9" messageRef="Message_0cz6iy4" />
     </bpmn:intermediateCatchEvent>
     <bpmn:serviceTask id="Activity_create_service_in_landscape" name="Create Service in LandscapeResourceAPI (async)">
       <bpmn:extensionElements>
@@ -161,7 +167,7 @@
     <bpmn:sequenceFlow id="Flow_1ocyprb" sourceRef="Activity_create_independent_service" targetRef="Activity_notify_service_created" />
     <bpmn:sequenceFlow id="Flow_114eg54" sourceRef="Activity_create_service_account" targetRef="Activity_notify_service_account_created" />
     <bpmn:sequenceFlow id="Flow_0dfmh6c" sourceRef="Activity_create_single_member_bundle" targetRef="Activity_notify_service_instances_bundle_created" />
-    <bpmn:serviceTask id="Activity_create_single_member_bundle" name="Create Single Memeber Instances Bundle">
+    <bpmn:serviceTask id="Activity_create_single_member_bundle" name="Create Single Member Instances Bundle">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_create_single_member_bundle" />
         <zeebe:ioMapping>
@@ -180,7 +186,7 @@
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_create_service_account" name="Create Service Account">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="dummy_task" />
+        <zeebe:taskDefinition type="sc-createindependentserviceprocess-common-stable_create_service_account" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0xlhyyq</bpmn:incoming>
       <bpmn:outgoing>Flow_114eg54</bpmn:outgoing>
@@ -188,7 +194,12 @@
   </bpmn:process>
   <bpmn:message id="Message_0p0k6ir" name="sc-createindependentserviceprocess-common-stable_message_fact_derived">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=&#34;00ba91b3-981a-48f0-b4a9-4c721031c366&#34;" />
+      <zeebe:subscription correlationKey="= command_correlation_id.value" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_0cz6iy4" name="sc-createindependentserviceprocess-common-stable_command_response_created">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="= command_correlation_id.value" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -249,8 +260,11 @@
         <di:waypoint x="188" y="120" />
         <di:waypoint x="220" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent">
         <dc:Bounds x="152" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="139" y="145" width="64" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_14m4702_di" bpmnElement="Event_14m4702">
         <dc:Bounds x="2062" y="532" width="36" height="36" />
@@ -300,7 +314,7 @@
       <bpmndi:BPMNShape id="Activity_1bn10mp_di" bpmnElement="Activity_stable_add_bundle_to_environment">
         <dc:Bounds x="1200" y="390" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1blmu3y_di" bpmnElement="Event_sc-createindependentserviceprocess-common-stable_message_fact_derived">
+      <bpmndi:BPMNShape id="Event_1blmu3y_di" bpmnElement="sc-createindependentserviceprocess-common-stable_command_response_created">
         <dc:Bounds x="1812" y="532" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1806" y="575" width="50" height="27" />

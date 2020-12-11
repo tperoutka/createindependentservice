@@ -20,7 +20,7 @@ streams:
       zone: '*'
       bucket: '*'
 variables:
-  - name: origin_event_correlation_id
+  - name: command_response_created_correlation_id
     source: jsonPath
     type: string
     value: "$.correlation_id"

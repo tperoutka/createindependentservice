@@ -7,4 +7,4 @@ worker_definition:
   process: 'sc-createindependentserviceprocess-common-stable'
   max_tasks: 1
   max_parallel_tasks_per_handler: 1
-  lock_duration_seconds: 30
+  lock_duration_seconds: 120
